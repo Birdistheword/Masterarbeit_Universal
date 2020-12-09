@@ -42,18 +42,20 @@ public class ManageCrates : MonoBehaviour
 
     private IEnumerator SpawnCrates()
     {
+        // Spawn and Move
         GameObject newCrate = Instantiate(cratePrefab, crateSpawn.position, Quaternion.identity);
         currentCrate = newCrate;
         moveCurrentCrate = true;
 
-        
-        
-
 
         yield return new WaitForSeconds(4);
+
+    
         // Choose Collider to Fill and send to Sign
         ChooseFillType();
-        sign.GetComponent<SignSpawnCircles>().SpawnCircleInSection(fillableCollider);
+        sign.GetComponent<SignSpawnCircles>().SpawnCircleInSection(fillableCollider, fillableAmount);
+
+        // Next Status
         moveCurrentCrate = false;
         filledCrate = currentCrate;
         StartCoroutine(MoveCratesToEnd());
@@ -61,7 +63,7 @@ public class ManageCrates : MonoBehaviour
 
     private IEnumerator MoveCratesToEnd()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         moveFilledCrate = true;
         yield return new WaitForSeconds(4);
         sign.GetComponent<SignSpawnCircles>().KillCircle();
@@ -74,10 +76,10 @@ public class ManageCrates : MonoBehaviour
     private void ChooseFillType()
     {
         fillableCollider = Random.Range(0, 3);
-        fillableAmount = Random.Range(1, 2);
+        fillableAmount = Random.Range(2, 4);
 
         currentCrate.GetComponent<CrateLogic>().Colliders[fillableCollider].tag = "FillableCollider";
-        Debug.Log("The fillable collider is: " + currentCrate.GetComponent<CrateLogic>().Colliders[fillableCollider]);
+        
         Debug.Log("Amount to fill: " + fillableAmount);
     }
 }
