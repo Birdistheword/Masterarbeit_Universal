@@ -10,26 +10,21 @@ public class TriggerHit : MonoBehaviour
 
     private float speedOfHittingObj;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
+   
     private void OnTriggerEnter(Collider obj)
     {
-        Debug.Log("I got hit in " + hitText);
-        speedOfHittingObj = obj.GetComponent<Rigidbody>().velocity.magnitude;
-        Debug.Log("speed was: " + speedOfHittingObj);
+        
+        if (obj.GetComponent<Rigidbody>() != null)
+        {
+            Debug.Log("I got hit in " + hitText);
+            speedOfHittingObj = obj.GetComponent<Rigidbody>().velocity.magnitude;
+            Debug.Log("speed was: " + speedOfHittingObj);
 
-        anim.SetFloat("hit_intensity", speedOfHittingObj);
+            anim.SetFloat("hit_intensity", speedOfHittingObj);
 
-        audio.Play();
+            audio.Play();
+        }
     }
 
    
