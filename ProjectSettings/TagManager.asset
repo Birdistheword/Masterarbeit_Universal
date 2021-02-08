@@ -6,6 +6,9 @@ TagManager:
   tags:
   - FillObject
   - FillableCollider
+  - Circle
+  - Cube
+  - Triangle
   layers:
   - Default
   - TransparentFX

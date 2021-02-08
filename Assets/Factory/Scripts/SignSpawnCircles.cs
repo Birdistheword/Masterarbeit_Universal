@@ -5,22 +5,50 @@ using UnityEngine.UI;
 
 public class SignSpawnCircles : MonoBehaviour
 {
-    [SerializeField] Image ball;
+    [SerializeField] Image starterImage;
     [SerializeField] Transform[] Spawners;
-    [SerializeField] Sprite greenSprite, whiteSprite;
+    [SerializeField] Sprite greenCircle, whiteCircle, greenSquare, whiteSquare, greenTriangle, whiteTriangle;
 
+    private Sprite greenCurrentSprite, whiteCurrentSprite;
     private List<Image> currentImageRow = new List<Image>();
-    private int currentImageIndex = 0;
+    private int currentImageIndex = 0, filledAmount = 0, targetAmount = 0;
     private Image currentImage;
+
+    public bool succesfullyFilled = false;
+    
     //private Vector2 offset = new Vector2(0.3f, 0);
 
         
 
-    public void SpawnCircleInSection(int index, int amount)
+    public void SpawnCircleInSection(int index, int amount, int type)
     {
+        targetAmount = amount;
+        succesfullyFilled = false;
         for(int i = 0; i < amount; i++)
         {
-            Image newImage = Instantiate(ball, Spawners[index]);
+
+            switch (type)
+            {
+                // Circle
+                case 0:
+                    whiteCurrentSprite = whiteCircle;
+                    greenCurrentSprite = greenCircle;
+                    break;
+                // Square
+                case 1:
+                    whiteCurrentSprite = whiteSquare;
+                    greenCurrentSprite = greenSquare;
+                    break;
+                // Triangle
+                case 2:
+                    whiteCurrentSprite = whiteTriangle;
+                    greenCurrentSprite = greenTriangle;
+                    break;
+            }
+            starterImage.sprite = whiteCurrentSprite;
+
+            //Instantiate the Image with the right Sprite
+            Image newImage = Instantiate(starterImage, Spawners[index]);
 
             // Move a bit
             newImage.transform.localPosition = new Vector3(0.25f * i, 0, 0);
@@ -34,14 +62,14 @@ public class SignSpawnCircles : MonoBehaviour
     
     public void CorrectFillChangeImage()
     {
-        currentImage.sprite = greenSprite;
+        currentImage.sprite = greenCurrentSprite;
 
         if(currentImageIndex<currentImageRow.Count-1)
         {
             currentImageIndex++;
             currentImage = currentImageRow[currentImageIndex];
         }
-        
+        filledAmount++;
     }
 
     public void EmptyChangeImage()
@@ -52,18 +80,28 @@ public class SignSpawnCircles : MonoBehaviour
             currentImage = currentImageRow[currentImageIndex];
         }
         
-        currentImage.sprite = whiteSprite;
+        currentImage.sprite = whiteCurrentSprite;
+        filledAmount--;
     }
 
     public void KillCircle()
     {
-
+        // Do this ere so I dont have to call it somewhere else
+        checkSuccesfullFill();
         foreach (Image img in currentImageRow)
         {
             Destroy(img);
         }
 
         currentImageRow.Clear();
+    }
+
+    private void checkSuccesfullFill()
+    {
+        //Check for succesfull fill (WARNING: Overfill currently counts as success)
+        if (filledAmount == targetAmount) succesfullyFilled = true;
+        // and Reset
+        filledAmount = 0;
     }
 
 }

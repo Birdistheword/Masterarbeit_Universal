@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: TopLeft
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -32,7 +32,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.566, y: 0.369}
+  m_AnchoredPosition: {x: -0.94199944, y: 0.369}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &787657029
@@ -47,7 +47,7 @@ GameObject:
   m_Layer: 0
   m_Name: BotLeft
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -67,7 +67,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.567, y: -0.33}
+  m_AnchoredPosition: {x: -0.9429994, y: -0.33}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &970789710
@@ -121,7 +121,7 @@ GameObject:
   m_Layer: 0
   m_Name: BotRight
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -141,7 +141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.648, y: -0.324}
+  m_AnchoredPosition: {x: 0.27200055, y: -0.324}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1410356184
@@ -156,7 +156,7 @@ GameObject:
   m_Layer: 0
   m_Name: TopRight
   m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -176,7 +176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.612, y: 0.385}
+  m_AnchoredPosition: {x: 0.236, y: 0.385}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8285429103035127370
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 8285429103035127372}
   - component: {fileID: 8285429103035127371}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: cf601e636835ff6469bbaee0afb27f6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -268,7 +268,7 @@ BoxCollider:
   m_GameObject: {fileID: 8285429103035127370}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -587,14 +587,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cff262082015c043bdd38fd59bd3701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 7181543137940538883, guid: c31f01aef045cd449b92a79cdb0e1cdb, type: 3}
+  StarterImage: {fileID: 0}
   Spawners:
   - {fileID: 1243796044}
   - {fileID: 1410356185}
   - {fileID: 787657030}
   - {fileID: 72513442}
-  greenSprite: {fileID: 21300000, guid: 7adedba6bab8ebd40908d8e4ae5efe9e, type: 3}
-  whiteSprite: {fileID: 21300000, guid: cc335544117e574459cf57ec7a57e614, type: 3}
+  greenCircle: {fileID: 21300000, guid: 7adedba6bab8ebd40908d8e4ae5efe9e, type: 3}
+  whiteCircle: {fileID: 21300000, guid: cc335544117e574459cf57ec7a57e614, type: 3}
+  greenSquare: {fileID: 21300000, guid: e8701e476bf287749836db7b34b767f0, type: 3}
+  whiteSquare: {fileID: 21300000, guid: 385f5ae6ed03c0943b9291c4188d51a5, type: 3}
+  greenTriangle: {fileID: 21300000, guid: 489b6eaa0068e3a47bd1c40a3e64f38b, type: 3}
+  whiteTriangle: {fileID: 21300000, guid: d2bdbeef32ac62b418f6b41f1dfd8258, type: 3}
 --- !u!1 &8285429104942912656
 GameObject:
   m_ObjectHideFlags: 0

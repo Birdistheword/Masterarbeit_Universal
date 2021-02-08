@@ -15,12 +15,18 @@ public class ManageCrates : MonoBehaviour
     private bool moveCurrentCrate = false, moveFilledCrate = false, nextCoroutine = true;
     private GameObject currentCrate;
     private GameObject filledCrate;
-    private int fillableCollider, fillableAmount;
+    private ChangeTag TagChange;
+    private SignSpawnCircles signScript;
+    private FactoryScore score;
+    private int fillableCollider, fillableAmount, fillableType, lastFillableType, lastFillableCollider, lastFillableAmount;
 
 
     void Start()
     {
-            StartCoroutine(SpawnCrates());
+        StartCoroutine(SpawnCrates());
+        TagChange = GameObject.FindObjectOfType<ChangeTag>();
+        signScript = GameObject.FindObjectOfType<SignSpawnCircles>();
+        score = GameObject.FindObjectOfType<FactoryScore>();
     }
 
     
@@ -51,9 +57,11 @@ public class ManageCrates : MonoBehaviour
         yield return new WaitForSeconds(4);
 
     
-        // Choose Collider to Fill and send to Sign
+        // Choose Collider to FIll, Amount and Type and send to Sign
         ChooseFillType();
-        sign.GetComponent<SignSpawnCircles>().SpawnCircleInSection(fillableCollider, fillableAmount);
+        signScript.SpawnCircleInSection(fillableCollider, fillableAmount, fillableType);
+        // Set The right tag for corresponding little shape object
+        TagChange.ChangeTagToFillable(fillableType);
 
         // Next Status
         moveCurrentCrate = false;
@@ -63,11 +71,31 @@ public class ManageCrates : MonoBehaviour
 
     private IEnumerator MoveCratesToEnd()
     {
+
+        // Wait, Move crates to end and destroy
+        // TODO: Destroy all objects inside crate (Note: they arent children of the crate, just touching it)
         yield return new WaitForSeconds(10);
         moveFilledCrate = true;
         yield return new WaitForSeconds(4);
-        sign.GetComponent<SignSpawnCircles>().KillCircle();
+        signScript.KillCircle();
+
+        // Managing Score Saving
+        if (signScript.succesfullyFilled == true)
+        {
+            score.filledCrates++;
+            Debug.Log("Crate sucessfully filled");
+        }
+
+        else
+        {
+            score.failedCrates++;
+            Debug.Log("Crate failed");
+        }
+
         moveFilledCrate = false;
+
+        //Reset tags of fill Objects
+        TagChange.ResetTag();
         Destroy(filledCrate);
         StartCoroutine(SpawnCrates());
 
@@ -75,11 +103,47 @@ public class ManageCrates : MonoBehaviour
 
     private void ChooseFillType()
     {
-        fillableCollider = Random.Range(0, 3);
-        fillableAmount = Random.Range(2, 4);
+        // watch this number, maybe 4->3 if theres errors (also in line 94)
+        fillableCollider = Random.Range(0, 4);
 
+        //Little Hack to not get the same thing twice in a Row
+        while(fillableCollider == lastFillableCollider)
+        {
+            fillableCollider = Random.Range(0, 4);
+        }
+
+        fillableAmount = Random.Range(1, 4);
+
+        //Little Hack to not get the same thing twice in a Row
+        while (fillableAmount == lastFillableAmount)
+        {
+            fillableAmount = Random.Range(1, 4);
+        }
+
+        // 0 = circles, 1= squares, 2= triangles;
+        fillableType = Random.Range(0, 3);
+
+        //Little Hack to not get the same thing twice in a Row
+        while (fillableType == lastFillableType)
+        {
+            fillableType = Random.Range(0, 3);
+        }
+        if (fillableType == 3) Debug.Log("FillableType Error");
+
+        // Remembering these values for the next Roll
+        lastFillableType = fillableType;
+        lastFillableCollider = fillableCollider;
+        lastFillableAmount = fillableAmount;
+
+        // Set the chosen Collider to fillable, so that further logic applies
         currentCrate.GetComponent<CrateLogic>().Colliders[fillableCollider].tag = "FillableCollider";
-        
+
+        // This component handles the logic to increase and decrease the amount of right objects in the selected collider
+        // and sends that info to the sign - so far nothing else
+        GameObject.FindGameObjectWithTag("FillableCollider").AddComponent<CountTriggersInCrate>();
+        GameObject.FindObjectOfType<CountTriggersInCrate>().SetType(fillableType);
+
+
         Debug.Log("Amount to fill: " + fillableAmount);
     }
 }
