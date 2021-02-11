@@ -7,7 +7,7 @@ public class SignSpawnCircles : MonoBehaviour
 {
     [SerializeField] Image starterImage;
     [SerializeField] Transform[] Spawners;
-    [SerializeField] Sprite greenCircle, whiteCircle, greenSquare, whiteSquare, greenTriangle, whiteTriangle;
+    [SerializeField] Sprite greenCircle, whiteCircle, greenSquare, whiteSquare, greenCylinder, whiteCylinder;
 
     private Sprite greenCurrentSprite, whiteCurrentSprite;
     private List<Image> currentImageRow = new List<Image>();
@@ -39,10 +39,10 @@ public class SignSpawnCircles : MonoBehaviour
                     whiteCurrentSprite = whiteSquare;
                     greenCurrentSprite = greenSquare;
                     break;
-                // Triangle
+                // Cylinder
                 case 2:
-                    whiteCurrentSprite = whiteTriangle;
-                    greenCurrentSprite = greenTriangle;
+                    whiteCurrentSprite = whiteCylinder;
+                    greenCurrentSprite = greenCylinder;
                     break;
             }
             starterImage.sprite = whiteCurrentSprite;

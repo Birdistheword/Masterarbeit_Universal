@@ -120,7 +120,7 @@ public class ManageCrates : MonoBehaviour
             fillableAmount = Random.Range(1, 4);
         }
 
-        // 0 = circles, 1= squares, 2= triangles;
+        // 0 = circles, 1= squares, 2= Cylinders;
         fillableType = Random.Range(0, 3);
 
         //Little Hack to not get the same thing twice in a Row
