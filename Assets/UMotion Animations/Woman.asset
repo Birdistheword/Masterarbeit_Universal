@@ -30,7 +30,7 @@ MonoBehaviour:
     ConfigToolMode:
       valueInternal: 2
     OpenedClipIndex:
-      valueInternal: 2
+      valueInternal: 0
     SelectedFrame:
       valueInternal: 0
     TimelineViewMode:
@@ -40,7 +40,7 @@ MonoBehaviour:
     FramesZoom:
       valueInternal: 0.2511888
     PropertiesScrollPosition:
-      valueInternal: 4796
+      valueInternal: 0
     PropertiesZoom:
       valueInternal: 1
     CurveYScrollPosition:
@@ -46619,7 +46619,7 @@ MonoBehaviour:
     - valueInternal: 0
     LocalRotationChannelList:
     - CurrentValue:
-        valueInternal: 0.13291237
+        valueInternal: 0.09938247
       ReferencePoseValue:
         valueInternal: 0.09938247
       PoseValueList: []
@@ -46637,7 +46637,7 @@ MonoBehaviour:
             valueInternal: 0.13291237
           newKeyListSerialized: 020000000000000000002e1a083e0000000000000000abaaaa3eabaaaa3e440100000041000000000989cb3d0000000000000000abaaaa3eabaaaa3e44010000
     - CurrentValue:
-        valueInternal: 0.16162026
+        valueInternal: 0.032765526
       ReferencePoseValue:
         valueInternal: 0.032765526
       PoseValueList: []
@@ -46655,7 +46655,7 @@ MonoBehaviour:
             valueInternal: 0.16162026
           newKeyListSerialized: 02000000000000000000c87f253e0000000000000000abaaaa3eabaaaa3e440100000041000000002535063d0000000000000000abaaaa3eabaaaa3e44010000
     - CurrentValue:
-        valueInternal: -0.24050446
+        valueInternal: -0.25618613
       ReferencePoseValue:
         valueInternal: -0.25618613
       PoseValueList: []
@@ -46673,7 +46673,7 @@ MonoBehaviour:
             valueInternal: -0.24050446
           newKeyListSerialized: 02000000000000000000cd4676be0000000000000000abaaaa3eabaaaa3e44010000004100000000d42a83be0000000000000000abaaaa3eabaaaa3e44010000
     - CurrentValue:
-        valueInternal: 0.9478242
+        valueInternal: 0.9609469
       ReferencePoseValue:
         valueInternal: 0.9609469
       PoseValueList: []
@@ -48908,7 +48908,7 @@ MonoBehaviour:
       StartFrame:
         valueInternal: 0
       EndFrame:
-        valueInternal: 79
+        valueInternal: 78
       Speed:
         valueInternal: 1
       Loop:
