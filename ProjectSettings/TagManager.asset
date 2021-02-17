@@ -9,6 +9,8 @@ TagManager:
   - Circle
   - Cube
   - Triangle
+  - BackCorner
+  - RayHit
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - 
   - 
   - No DIstance Grab
-  - 
+  - RaycastTrigger
   - 
   - 
   - 

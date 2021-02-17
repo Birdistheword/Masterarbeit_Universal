@@ -11,7 +11,6 @@ public class PillarController : MonoBehaviour
 
     void Start()
     {
-        speed = Random.Range(2f, 4f);
         
         minScale = Random.Range(1f, 3f);
         maxScale = Random.Range(9f, 12f);
@@ -50,7 +49,6 @@ public class PillarController : MonoBehaviour
     {
         minScale = Random.Range(1f, 3f);
         maxScale = Random.Range(9f, 12f);
-        speed = Random.Range(2f, 4f);
         changeVector = new Vector3(0f, speed, 0f);
     }
 }

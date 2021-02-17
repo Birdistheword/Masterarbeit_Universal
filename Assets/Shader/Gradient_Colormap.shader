@@ -4,7 +4,8 @@
 	{
 		_MainTex("Texture", 2D) = "white" {}
 		_GradientMap("Gradient Map", 2D) = "white" {}
-		_Intensity("Intensity", Range(0,10)) = 1
+		_IntensityLight("Intensity_Light", Range(0,10)) = 1
+		_IntensityEffect("Intensity_Effect", Range(0,1)) = 0
 		_isActive("Active", Float) = 1
 	}
 		SubShader
@@ -41,7 +42,8 @@
 						return o;
 					}
 						sampler2D _MainTex, _GradientMap;
-						float _Intensity;
+						float _IntensityLight;
+						float _IntensityEffect;
 						float _isActive;
 
 						fixed4 frag(v2f i) : SV_Target
@@ -51,14 +53,15 @@
 						// take the 3 color channels and average them out to create a grayscale version
 						float grayscale = (col.r + col.g + col.b) / 3;
 						// control the intensity 
-						grayscale *= _Intensity;
+						grayscale *= _IntensityLight;
+
 						// project the gradient map over the grayscale
 						fixed4 gradient = tex2D(_GradientMap, grayscale);
 						// get the transparency
-						gradient *= gradient.a;
+						//gradient *= gradient.a;
 						// add original camera view back where the gradient is transparent
-						gradient += (1 - gradient.a) * col;
-						fixed4 nothing;
+						//gradient.a += (1 - gradient.a) * col;
+						gradient += (col * _IntensityEffect) - (gradient * _IntensityEffect);
 						if (_isActive == 1) {
 							return gradient;
 						}

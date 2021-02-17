@@ -4,27 +4,47 @@ using UnityEngine;
 
 public class MoMaPlayer : MonoBehaviour
 {
-    [SerializeField] GameObject shaderPlane;
-    private SetShaderActive setShader;
+    [SerializeField] GameObject shaderPlane, cube1, LookPos;
+    private ChangeMats cubeScript1;
+    private SetImageShader setImgShader;
+    private Vector3 screenStuff;
+    private float maxD = 40f;
+    
 
 
     void Start()
     {
-        setShader = GameObject.FindObjectOfType<SetShaderActive>();
+        setImgShader = GameObject.FindObjectOfType<SetImageShader>();
+        screenStuff = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
+        cubeScript1 = cube1.GetComponent<ChangeMats>();
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
+        // Layer 9 is the RaycastTrigger Layer. Only want to interact with objects here
+        int layerMask = 1 << 9;
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, Vector3.forward);
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        Ray ray = new Ray(transform.position, fwd );
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            Transform objectHit = hit.transform;
+        Debug.DrawRay(transform.position, fwd * maxD, Color.red);
 
-            // Do something with the object that was hit by the raycast.
-            print(hit.collider.gameObject.name);
+        if (Physics.Raycast(ray, out hit, maxD, layerMask)) {
+            if(hit.collider.gameObject.name.Equals("ToggleShaderPlane"))
+            {
+                setImgShader.SetMultiplier(true);
+            }
         }
     }
+
+    public Vector3 GetOrig() 
+    {
+        return transform.position;
+    }
+    public Vector3 GetDir()
+    {
+        return transform.TransformDirection(Vector3.forward);
+    }
+
 }
