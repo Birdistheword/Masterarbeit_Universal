@@ -7,18 +7,16 @@ public class SignSpawnCircles : MonoBehaviour
 {
     [SerializeField] Image starterImage;
     [SerializeField] Transform[] Spawners;
-    [SerializeField] Sprite greenCircle, whiteCircle, greenSquare, whiteSquare, greenCylinder, whiteCylinder;
+    [SerializeField] Sprite  cylinder,  banana, phone;
 
-    private Sprite greenCurrentSprite, whiteCurrentSprite;
+    private Sprite currentSprite;
     private List<Image> currentImageRow = new List<Image>();
     private int currentImageIndex = 0, filledAmount = 0, targetAmount = 0;
     private Image currentImage;
 
     public bool succesfullyFilled = false;
     
-    //private Vector2 offset = new Vector2(0.3f, 0);
-
-        
+     
 
     public void SpawnCircleInSection(int index, int amount, int type)
     {
@@ -31,21 +29,18 @@ public class SignSpawnCircles : MonoBehaviour
             {
                 // Circle
                 case 0:
-                    whiteCurrentSprite = whiteCircle;
-                    greenCurrentSprite = greenCircle;
+                    currentSprite = cylinder;
                     break;
                 // Square
                 case 1:
-                    whiteCurrentSprite = whiteSquare;
-                    greenCurrentSprite = greenSquare;
+                    currentSprite = banana;
                     break;
                 // Cylinder
                 case 2:
-                    whiteCurrentSprite = whiteCylinder;
-                    greenCurrentSprite = greenCylinder;
+                    currentSprite = phone;
                     break;
             }
-            starterImage.sprite = whiteCurrentSprite;
+            starterImage.sprite = currentSprite;
 
             //Instantiate the Image with the right Sprite
             Image newImage = Instantiate(starterImage, Spawners[index]);
@@ -62,12 +57,13 @@ public class SignSpawnCircles : MonoBehaviour
     
     public void CorrectFillChangeImage()
     {
-        currentImage.sprite = greenCurrentSprite;
+        currentImage.color = Color.green;
 
-        if(currentImageIndex<currentImageRow.Count-1)
+        if (currentImageIndex<currentImageRow.Count-1)
         {
             currentImageIndex++;
             currentImage = currentImageRow[currentImageIndex];
+            
         }
         filledAmount++;
     }
@@ -80,7 +76,8 @@ public class SignSpawnCircles : MonoBehaviour
             currentImage = currentImageRow[currentImageIndex];
         }
         
-        currentImage.sprite = whiteCurrentSprite;
+        //currentImage.sprite = whiteCurrentSprite;
+        currentImage.color = Color.white;
         filledAmount--;
     }
 

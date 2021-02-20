@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ChangeTag : MonoBehaviour
 {
+    // Really bad script since when a tag is changed / renamed nothing works...
+
 
     private string previousShape, currentShape;
 
@@ -13,7 +15,7 @@ public class ChangeTag : MonoBehaviour
         {
             case 0: currentShape = "Circle";
                 break;
-            case 1: currentShape = "Cube";
+            case 1: currentShape = "Square";
                 break;
             case 2: currentShape = "Triangle";
                 break;
@@ -21,9 +23,9 @@ public class ChangeTag : MonoBehaviour
 
 
         previousShape = currentShape;
-        GameObject[] allOfTHisShape = GameObject.FindGameObjectsWithTag(currentShape);
+        GameObject[] allOfThisShape = GameObject.FindGameObjectsWithTag(currentShape);
 
-        foreach (GameObject a in allOfTHisShape)
+        foreach (GameObject a in allOfThisShape)
         {
             a.tag = "FillObject";
         }

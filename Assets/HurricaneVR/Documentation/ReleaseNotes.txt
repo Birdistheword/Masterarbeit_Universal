@@ -1,0 +1,341 @@
+Release 1.8
+
+Fixes:
+
+Fixed PUN2 integration missing extra files
+Fixed Oculus Player Rig not defaulting tracking level to Floor
+Fixed Hand Poser not posing hand immediately after selecting another pose
+Reduced the selection area size of the hand poser bone buttons as it was a bit too large
+
+Hand Animation and Posing Improvements:
+	Added support for SteamVR Knuckles finger tracking (reimport the new steamvrintegration package)
+	Updated HVRInputManager with finger tracking settings for non knuckles controllers
+    Updated HVRPhysicsPoser with FingerTip check only option to save on CPU instead of checking every bone
+	Updated HVRHandPoser to use finger tracking information in grabs
+	Updated HVRSettings with finger tracking default settings for new poses
+	Updated HVRPhysicsPoser to live update in the editor
+	Updated HVRHandPoser with Live Auto Option - Hand automatically fits while posing
+	Updated HVRHandPoser with Physics Poser [Open|Close] hand buttons
+
+Updates:
+Removed trackpad detection logic as the method doesn't work with all VR sdks.
+Added track pad touch support and steamvr binding
+Added Reverb G2 detection
+Added "CanDistanceGrab" to HVRPlayerInputs
+Added LineCanReposition and LineCanRotate to HVRGrabPoint for LineGrab flexibility
+
+Release 1.71
+
+Fixed the invisible hand not disabling collision with the main hand colliders on start due to the order 
+	of component initializing
+Fixed issue with the dynamic grab using Collider.GetClosestPoint on bad mesh colliders.
+
+
+Updated Final Ik Integration scene with poses that were missing from 1.7
+Added "InverseKinematics" field on the HVRHandGrabber to toggle IK mode for grabbing and posing
+
+Release 1.7
+
+New VRIK Pose / Grabbing Integration:
+	Create poses in the scene editor with your full body mesh without having to use duplicate hand tricks.
+	VRIK updates in editor mode when moving and rotating the IK Hand Targets
+	VRIK Example scene included with VRIK Pilot setup
+	New InverseKinematics (bool) on HVRSettings to let the grab system know it's using IK targets
+	New FullBody (prefab) field on HVRSettings to enable full body IK posing
+	CloneHandModel and InvisiblePhysics hands unnecessary when using IK
+
+HVRHandPoser enhanced with Position / Rotation handles for the hand / ik target and rotation handles	
+	for each bone in the hand to easily pose your hand without having to search the tree for each bone.
+
+Add AutoApplyLayer field to HVRGrabbable that defaults to true for backward compatibility. 
+	Applies Grabbable layer on Awake
+Add AutoApplyGrabbableLayer to HVRSettings that defaults to true for backward compatibility.
+	Allows toggling on / off the auto applied Grabbable layer at a global level.
+
+Release 1.61
+
+Bug fix:
+Reverted Knuckles using Grip force as it doesn't work as expected.
+
+Release 1.6
+
+Bug Fixes:
+Save grabbable rigidbody state only on the first grab of a two handed grab
+Prevent rigidbody warning when restoring kinematic grabbable state
+Line of sight check ignored when grabbing a force grabbed object
+Handled Destroyed "Hovered Grabbables"
+Center Of Mass, Inertia Tensor, and Inertia Tensor Rotation are returned to their pregrab state on release 
+	instead of being recalculated which wipes out custom overrides
+Fixed hand popping to the socket when placing due to joint destruction timing
+
+Grab Updates:
+
+
+New Line grab - create one grabpoint and pose with a start / end point and grab 
+	anywhere on the axis (position and rotation), currently limited to Up axis of the hand. 
+	Grabbing only with trigger frees the hand to move or rotate until grip is pressed again.
+	Requires ParentHandModel = false.
+
+New "MoveGrab" behaviour for the hand when grabbing. The hand will move to the grabbable and rotate into position instead of pulling
+	the grabbable to the hand. This automatically happens for grabbables marked stationary or if the object is already grabbed.
+	Experimental "HandGrabs" option is added to the HVRHandGrabber to enable this for all static posed grabs.
+		
+CloneHandModel defaulted to true on the Hand Prefabs, automatically clones the hand model and removes the colliders from the clone,
+	the clone is used when parenting the hand to the grabbable instead of the original. This prevents inertia tensor and center of mass
+	changes to the object from the addition of the hand colliders. This is also necessary for the hand rigidbody when performing a "MoveGrab" 
+	which requires collisions of the hand to be temporarily disabled which triggers inertia and com recalculation. Alternatively the hand
+	rigidbody can have it's COM and tensor overriden so that it cannot recalculate itself.
+
+New GrabIndicator GameObject field on the Hand Grabber, if provided it will enabled and position itself at the grab point location 
+	when hovering a grabbable. 
+
+New ForcePull style added to the Force Grabber that uses physics forces, separate settings than Gravity Glove style
+
+New IsJointAnchor field on the GrabPoint (defaulted false), the GrabPoint position will become the joint anchor instead of the palm of the hand,
+	useful to stabilize the joint for objects that might be held by the finger tips instead of in the palm.
+	
+Parenting of the hand is now longer required for non stationary physics joint grabs that don't have joint offsets (WIP).
+	Parenting still recommended for static stationary objects, like levers, drawers, handles etc.
+	
+HVRGrabbable:EnableInvisibleHand set false by default
+Added hover haptics to distance grab
+Grabbing from a socket now uses the "Primary GrabPoint" (ForceGrabberGrabPoint)
+Kinematic Grabbables remain kinematic by default - if you unpacked the example back pack, disable kinematic as it was previously enabled in the prefab
+Trigger grab option added to HVRPlayerInputs. When using Toggle grab mode the Trigger can only grab - not drop.
+Gravity Glove style adds AutoGrabDistance, "auto grab" trigger grabbable bag removed.
+
+
+Knuckles Update:
+Added GripUseEither to HVRInputSettings - useful to use the GripForce Steambinding in addition to the Steam Grip Button action.
+	This will allow your player to grab objects with just pinky, ring, or middle finger pressure;
+Knuckles bindings updated to bind GripForce to the grip action.
+
+
+Fixed Grab Joint Changes:
+Fixed joints now create Locked axis Configurable Joints to simplify the jointing process
+Grabbable Fixed Joint Settings [CanJointBreak, JointBreakForce, JointBreakTorque] are now deprecated and will be removed in the next update. 
+Use JointOverride on the grabbable to set any break forces, they are infinity by default and will not break
+
+Physics hand changes:
+Legacy Joint Settings (pre 1.5) on the HVRJointHand component are now removed. JointSettings must be assigned now.
+
+Pun Updates:
+Pun Rig updated with recent additions and changes to hand and grabbable joint updates
+Dynamic pose now works with CloneHandModel
+Dynamic pose should work with not parenting
+
+Release 1.54
+
+Bug Fixes: fixed hand joint issue introduced in 1.53 for physics hands in older versions
+
+Updates:
+
+Updated HexaBodyVR Integration package
+
+Physics hand changes:
+Legacy Joint Settings on the HVRJointHand component are now marked deprecated and will be removed in the next update.
+Use JointSettings instead, default player prefab since 1.5 already has the JointSettings applied
+
+Release 1.53
+
+Bug Fixes:
+Fixed dynamic grab failing to create the final grab joint due to a rotation calculation error
+
+Major Physics Hands Update:
+Hand default mass has been set to 2, (5 is too high)
+Hand default strength has been adjusted to reflect changes in the physics hand system
+Hand max velocity removed as it isn't necessary, hand strength settings should be used instead.
+Two hand grabs are much more stable with the physics hand updates
+Updated the default hand prefab with COM and Inertia overrides to account for the capsules colliders on the fingers
+which causes bad rotation correction and unexpected recoil directions
+Hands can now keep up with the player even at high speeds.
+
+Updates:
+Add CanSprint and CanCrouch to the Player Controller
+Added acceleration and decelleration options to the Player Controller
+Organized the Player Controller inspector fields
+Add ENABLE_LEGACY_INPUT_MANAGER around old input keyboard code for users using the new input system
+Renamed DefaultHandSettings to HVR_DefaultHandSettings
+Updated Player Controller to check if Teleporter component exists before using it
+Disabled grab points are no longer added to the grab points list or considered for remote grab marker
+
+
+Grabbable Updates:
+Grabbable configurable joint settings are removed, HVRSettings.DefaultJointSettings or Grabbable.JointOverride must now be used
+CollisionDetection field added to change the mode while held, defaulted to ContinuousDynamic
+Removed the temporary joint override function, custom hand strengths and grabbable mass adjustments should be used instead
+
+Release 1.52
+
+Bug Fixes:
+Fixed the dynamic grab having rotation issues after grabbing
+
+Enhancements:
+
+Added Clone Hand model option to the hand grabber that will clone the hand model and remove any colliders,
+	if enabled the cloned hand model will be parented to the object instead of the original which stabilizes the rigidbody
+	due to the rigidbody resetting it's properties with newly added colliders.
+New HVRRigidBodyOverrides component that lets you override Center Of Mass, Inertia Tensor, and Inertia Tensor Rotation
+Added grabbable inspector toggle to draw renderer bounding box and center of mass
+Added HandGrabbed and HandReleased events to the Grabbable component
+
+Release 1.51
+
+Bug Fixes:
+Disable default resolution scale of 1.5 in the HVRCameraRig
+Grabbable Parent Immediately parents immediately after grab and instead of in the next update
+Fix breakdistance check for dynamic grab on large objects
+
+
+Enhancements:
+Socket position offset can now be overriden from child classes
+Dial now operates in local space so they can be attached to moving objects - existing projects might need to update their dial if the dial is offset from 0,0,0
+Stabilized grabbable joints and reduced the power of the default pull to hand strength
+Added pull strength joint override to the grabbable which can be useful to customize pulling strength based on object mass
+Add support for HP reverb 2 controller
+Added input controller check for WMR controllers to determine if it has a track pad or not
+Add Stationary flag to Grabbable which for objects that do not need to be pulled and rotated into to the hand
+Add RemainsKinematic flag to a Kinematic Grabbable that doesn't become NonKinematic when grabbed
+Add all SteamVR bindings and renamed existing to default file names
+Second Grab Hand doesn't pull a 2nd handed grabbable
+Update hand grabber break distance check to use the tracked controller for stationary items
+Updated default grabbable joint settings to be position locked to prevent joint stretch
+
+Release 1.5
+Bug Fixes:
+Fix resetting parent from socket release when application is quitting
+Fix controller events firing when application is quitting
+Fix hand model parenting check
+Fix grabbable joint anchor
+Fix being able to grab from sockets while force grabbing
+
+Enhancements:
+Easily share grabbable and hand settings with the new HVRJointSettings Scriptable Object: Configurable joint scriptable object used for grabbable joints and custom physics hand strength
+Hand grab system updated to use new HVRJointSettings that allows grabbables to override the hand strength for separate settings for one and two handed grabbing
+New physics based recoil component with scriptable object settings with up force, torque, backwards force, and side to side random options
+New assault rifle example with automatic fire, chamber check, charging handle, chambered round.
+New pump shotgun example
+Ammo can have damage, range, and force assigned
+Pistol updated to use the new recoil system, chamber check, slide bullet eject
+Grabbable can have additional colliders set for ignoring collision with the hands while grabbing
+Grabbable can force overlap clearance or after a timeout for re-enabling collision with the hand after release
+Posable hand supports less than 5 fingers
+Posable hand capsule collider generation helper
+Posable hand mirror settings to easily mirror poses for mirrored rigs
+New waist tracking component that keeps the waist position when looking down
+Ring highlight given line of sight and distance options for display
+New scene with custom 4 finger hand setup
+
+
+Bug Fixes:
+Fixed the raycastgun not firing it's Fired event
+
+Release 1.41
+
+Bug Fixes:
+Fix levers to allow rotation all on 3 axis and not just X/Z
+Fix grabbable to reset the inertia tensor and center of mass on release
+
+Enhancements:
+Add option to use AND/OR condition on sockets with multiple filters.
+Add option to the HVRDamageHandler to be damageable or not.
+A grabbable which requires another grabbable to be held, can now have the hand moved to the required grabbable if that one was released
+Useful for something like the pistol stabilizer where you don't want the gun to drop if the main grip was let go.
+Add stabilizer grip to the pistol
+Added OnDeactivate to complement OnActivate to the grabbable component
+Add option to player inputs to swap move/turn axis
+
+
+Release 1.4
+
+Bug Fixes:
+Fix bug where rigid body state was reset on release when one hand was still grabbing for two handed objects.
+Fix bug where tooltips for custom scripts wouldn't show
+Fix bug where inspector scripts wouldn't open when double clicking the their property field
+Fix 2019 using statements that shouldn't exist causing 2020 compiler errors
+Fix renderer bound check for socket scaling to only use mesh renderers
+
+Enhancements:
+Easily record the hand pose state for dynamic poses while in play mode to use for a static pose
+Pistol upgraded to require magazine, bullet chambering, and animation
+Option on Player Controller to push back when trying to walk through walls.
+Option on Player Controller to push back when leaning to far into something.
+Removed hard coded CameraRig adjustment buttons.
+Add option to sockets that prevents a socketed item from being grabbed out.
+Add ForceRelease method to the grabbable class
+Add GrabsFromHand option to sockets that will allow the socket to remove grabbables from a hand when hovering.
+Added Vive Cosmos support and SteamVR bindings.
+Player Controller sphere cast grounded check.
+Add FadeFromLeaning option to screen fade when leaning to far into something
+Added Basic jump to the player controller
+Updated Screen Fade and Ring Highlight materials to use UI shaders to work with all pipelines.
+Added ability to disable hand model parenting on grab. (by user request)
+Added component that lets a grabbable require another to be grabbed
+Add option on a required grabbable to drop if the required grabbable itself is dropped.
+Add option on the grabbable bags to prioritize non held items over held items
+Add override SFX option to socket - "AudioGrabbedOverride" and "AudioReleasedOverride"
+Added basic "offset" grab that doesn't use static or dynamic poses.
+Experimental dash teleport
+
+Release 1.3
+
+Bug Fixes:
+
+Fixed a bug when holding something in the left hand and then teleporting.
+Fixed issues with multiple UI world canvases with multiple UI pointers.
+Fixed triggers causing head collision fade.
+Fixed grabbable rigidbody state getting stuck with no gravity / kinematic when hand swapping over a HVRSocket
+
+Enhancements:
+PUN2 Progress and basic example scene
+
+Release 1.2
+
+Bug Fixes:
+
+Force grabber stops aiming at a grabbed object if it was aiming before it was grabbed
+Fixed SteamVR Oculus touch grip bindings to use trigger
+Disable teleport while not grounded
+Fixed enum flags socket filter when socketable has multiple flags
+Fixed vive steamvr trackpad bindings and XRInput bindings to apply to trackpad raw inputs for clarity
+
+Enhancements:
+
+Added Keypad unlocking door example
+Added screen fade component / prefab
+Added head collision fade by distance
+Added SteamVR scene
+Heavy two handed hammer example (progress)
+Added Configurable gravity and max fall speed to the player controller
+Added the ability to toggle crouch to a configurable height
+Added collision events component so you can react to impulse force / velocity thresholds (useful for breaking things)
+Allow scaling of socket visuals by x,y, and z
+HVRSocketHoverScale now smoothly transitions between full and default scale
+Holster example
+Added waist transform to the Player controller with configurable offset relative to the adjusted camera height
+
+
+
+Release 1.1
+
+Bug Fixes:
+
+Fix Vive controller input settings
+Fix controller offset y/z for left hand
+Fix examples reset button mesh collider missing
+Fix physics grabber disabling collisions on the grabbable
+Fix physics grabber grab range
+Fix hand model having its layer changed to grabbable by the physics grabber
+
+Enhancements:
+
+Force Grabber has configurable max collision velocity, and max post auto grab velocity if you miss the grab
+Physics grabber more stable on grabbing moving objects
+Collider distance option for Trigger grabbable bag when checking for the closest grabbable.
+Added a Angular velocity threshold check when converting hand angular to linear velocity while throwing
+Added line of sight checks for force grabber and hand grabber
+Clone poses in the HVRHandPoser instead of using the default
+Added additional objects to further demonstrate how to create doors and static poses
+SteamVR(2019) support with bindings for Oculus,WMR,HTC Vive, Knuckles
+Added ability to vibrate the controllers
+

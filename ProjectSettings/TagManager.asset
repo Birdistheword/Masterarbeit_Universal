@@ -4,13 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - FillObject
-  - FillableCollider
   - Circle
-  - Cube
+  - Square
   - Triangle
-  - BackCorner
-  - RayHit
+  - Grabbable
+  - Hand
+  - LeftTarget
+  - RightTarget
+  - Cube
+  - FillableCollider
+  - FillObject
   layers:
   - Default
   - TransparentFX
@@ -20,8 +23,8 @@ TagManager:
   - UI
   - 
   - 
-  - No DIstance Grab
-  - RaycastTrigger
+  - Player
+  - RayTrigger
   - 
   - 
   - 
@@ -32,10 +35,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Grabbable
+  - Hand
+  - LeftTarget
+  - RightTarget
   - 
   - 
   - 

@@ -594,12 +594,9 @@ MonoBehaviour:
   - {fileID: 1410356185}
   - {fileID: 787657030}
   - {fileID: 72513442}
-  greenCircle: {fileID: 21300000, guid: 7adedba6bab8ebd40908d8e4ae5efe9e, type: 3}
-  whiteCircle: {fileID: 21300000, guid: cc335544117e574459cf57ec7a57e614, type: 3}
-  greenSquare: {fileID: 21300000, guid: e8701e476bf287749836db7b34b767f0, type: 3}
-  whiteSquare: {fileID: 21300000, guid: 385f5ae6ed03c0943b9291c4188d51a5, type: 3}
-  greenCylinder: {fileID: 21300000, guid: 6fe2ab235c0209e44a402cd742429acd, type: 3}
-  whiteCylinder: {fileID: 21300000, guid: d6b7db9d8d491124fa05340f0e6594e2, type: 3}
+  cylinder: {fileID: 21300000, guid: 4c4b9065782046a46abd9e61e052b28b, type: 3}
+  banana: {fileID: 21300000, guid: a9e21ea0a5802a6429e8e611409381d0, type: 3}
+  phone: {fileID: 21300000, guid: 2b552d5b0c5bdd3429f4ea04cb5cf017, type: 3}
   succesfullyFilled: 0
 --- !u!1 &8285429104942912656
 GameObject:
